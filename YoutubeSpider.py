@@ -155,7 +155,7 @@ class YoutubeSpider:
                 with youtube_dl.YoutubeDL(ydl_opt) as ydl:
                     print("download 360p video...")
                     try:
-                        download_str = ydl.download([video_url])
+                        ydl.download([video_url])
                         shutil.move("./"+item["id"]+".mp4",self.download_dir_360p)
                     except:
                         pass
