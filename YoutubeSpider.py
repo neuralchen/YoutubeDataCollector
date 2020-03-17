@@ -1,3 +1,15 @@
+#!/usr/bin/env python3
+# -*- coding:utf-8 -*-
+#############################################################
+# File: YoutubeSpider.py
+# Created Date: Sunday March 15th 2020
+# Author: Chen Xuanhong
+# Email: chenxuanhongzju@outlook.com
+# Last Modified:  Wednesday, 18th March 2020 1:32:08 am
+# Modified By: Chen Xuanhong
+# Copyright (c) 2020 Shanghai Jiao Tong University
+#############################################################
+
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import socks

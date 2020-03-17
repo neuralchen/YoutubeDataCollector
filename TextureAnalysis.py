@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 # -*- coding:utf-8 -*-
 #############################################################
-# File: texture_analysis.py
+# File: TextureAnalysis.py
 # Created Date: Tuesday March 17th 2020
 # Author: Chen Xuanhong
 # Email: chenxuanhongzju@outlook.com
-# Last Modified:  Wednesday, 18th March 2020 1:22:32 am
+# Last Modified:  Wednesday, 18th March 2020 1:32:47 am
 # Modified By: Chen Xuanhong
 # Copyright (c) 2020 Shanghai Jiao Tong University
 #############################################################
-
 
 import torch
 import torch.nn as nn
