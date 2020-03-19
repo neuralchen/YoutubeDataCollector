@@ -5,7 +5,7 @@
 # Created Date: Sunday March 15th 2020
 # Author: Chen Xuanhong
 # Email: chenxuanhongzju@outlook.com
-# Last Modified:  Thursday, 19th March 2020 10:42:10 am
+# Last Modified:  Thursday, 19th March 2020 11:27:00 am
 # Modified By: Chen Xuanhong
 # Copyright (c) 2020 Shanghai Jiao Tong University
 #############################################################
@@ -50,7 +50,11 @@ class YoutubeSpider:
         self.url_preffix                = "https://www.youtube.com/watch?v="
         self.res_json_path              = "./result_json"
         self.download                   = download
-        self.proxy_str                  = "%s:%d"%(proxy["proxy_server"],proxy["port"])
+        self.proxy_str                  = r"%s:%s@%s:%d"%(proxy["username"],proxy["passwd"],proxy["proxy_server"],proxy["port"])
+        # self.proxy_username             = proxy["username"]
+        # self.proxy_passwd               = proxy["passwd"]
+        # self.proxy_url                  = proxy["proxy_server"]
+        # self.proxy_port                 = proxy["port"]
         self.google_ok                  = False
         if download_dir is None:
             download_dir = "./downloads"
@@ -69,6 +73,7 @@ class YoutubeSpider:
             print("Need a proxy!")
             socks.setdefaultproxy(
                     socks.PROXY_TYPE_HTTP,
+                    # socks.PROXY_TYPE_SOCKS4,
                     proxy["proxy_server"],
                     proxy["port"],
                     username=proxy["username"],
@@ -147,7 +152,11 @@ class YoutubeSpider:
     def __download__(self, res_list):
         format_flag = 0
         for item in res_list:
-            ydl_opt = ({'proxy':self.proxy_str})
+            # ydl_opt = ({'proxy':self.proxy_str})#geo_verification_proxy
+            ydl_opt = ({})
+                # 'username':self.proxy_username,
+                # 'password':self.proxy_passwd,
+                # 'geo_verification_proxy':self.proxy_str})
             video_url = item["url"]
             with youtube_dl.YoutubeDL(ydl_opt) as ydl:
                 # ydl.download([video_url])
