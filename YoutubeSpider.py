@@ -5,7 +5,7 @@
 # Created Date: Sunday March 15th 2020
 # Author: Chen Xuanhong
 # Email: chenxuanhongzju@outlook.com
-# Last Modified:  Thursday, 19th March 2020 2:48:00 pm
+# Last Modified:  Thursday, 19th March 2020 2:49:30 pm
 # Modified By: Chen Xuanhong
 # Copyright (c) 2020 Shanghai Jiao Tong University
 #############################################################
@@ -186,8 +186,9 @@ class YoutubeSpider:
                     try:
                         ydl.download([video_url])
                         shutil.move("./"+item["id"]+".mp4",self.download_dir_360p)
-                    except:
-                        pass
+                    except Exception as err:
+                        print(err)
+                        print("Failed to download this video!")
                 # ydl_opt = ({'format_id':'137','proxy':self.proxy_str,'outtmpl':r"%(id)s.%(ext)s"})
                 ydl_opt = ({'format_id':'137','outtmpl':r"%(id)s.%(ext)s"})
                 with youtube_dl.YoutubeDL(ydl_opt) as ydl:
@@ -195,8 +196,9 @@ class YoutubeSpider:
                     try:
                         ydl.download([video_url])
                         shutil.move("./"+item["id"]+".mp4",self.download_dir_1080p)
-                    except:
-                        pass
+                    except Exception as err:
+                        print(err)
+                        print("Failed to download this video!")
  
 if __name__ == '__main__':
     google_info = {
