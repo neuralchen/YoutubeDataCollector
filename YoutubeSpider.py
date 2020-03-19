@@ -5,7 +5,7 @@
 # Created Date: Sunday March 15th 2020
 # Author: Chen Xuanhong
 # Email: chenxuanhongzju@outlook.com
-# Last Modified:  Thursday, 19th March 2020 2:49:30 pm
+# Last Modified:  Thursday, 19th March 2020 3:37:44 pm
 # Modified By: Chen Xuanhong
 # Copyright (c) 2020 Shanghai Jiao Tong University
 #############################################################
@@ -52,7 +52,7 @@ class YoutubeSpider:
         self.download                   = download
         # self.proxy_str                  = r"%s:%s@%s:%d"%(proxy["username"],proxy["passwd"],proxy["proxy_server"],proxy["port"])
         # self.proxy_str                  = r"%s:%d"%(proxy["proxy_server"],proxy["port"])#socks5://username:password@hostname:port
-        self.proxy_str                  = "socks5://%s:%s@%s:%d/"%(proxy["username"],proxy["passwd"],proxy["proxy_server"],proxy["port"])
+        self.proxy_str                  = "https://%s:%s@%s:%d/"%(proxy["username"],proxy["passwd"],proxy["proxy_server"],proxy["port"])
         self.proxy_username             = proxy["username"]
         self.proxy_passwd               = proxy["passwd"]
         self.proxy_url                  = proxy["proxy_server"]
@@ -158,7 +158,7 @@ class YoutubeSpider:
         for item in res_list:
             # ydl_opt = ({'proxy':self.proxy_str})#geo_verification_proxy   
             ydl_opt = ({
-                # "proxy":self.proxy_str
+                "proxy":self.proxy_str
              })
             video_url = item["url"]
             with youtube_dl.YoutubeDL(ydl_opt) as ydl:
@@ -167,6 +167,8 @@ class YoutubeSpider:
                     info_dict = ydl.extract_info(video_url, download=False)
                     wocao = info_dict["formats"]
                     format_flag = 0
+                    timeStr = datetime.datetime.strftime(datetime.datetime.now(),'%Y%m%d%H%M%S')
+                    write_config(os.path.join(self.res_json_path, "nimabi-%s.json"%timeStr),wocao)
                     for temp in wocao:
                         if temp["format_id"] == "134":
                             format_flag +=1
@@ -180,7 +182,7 @@ class YoutubeSpider:
             if format_flag == 2:
                 print("The video contains 1080p and 360p!")
                 # ydl_opt = ({'format_id':'134','proxy':self.proxy_str,'outtmpl':r"%(id)s.%(ext)s"})
-                ydl_opt = ({'format_id':'134','outtmpl':r"%(id)s.%(ext)s"})
+                ydl_opt = ({'format':'134','outtmpl':r"%(id)s.%(ext)s","proxy":self.proxy_str})
                 with youtube_dl.YoutubeDL(ydl_opt) as ydl:
                     print("download 360p video...")
                     try:
@@ -190,7 +192,7 @@ class YoutubeSpider:
                         print(err)
                         print("Failed to download this video!")
                 # ydl_opt = ({'format_id':'137','proxy':self.proxy_str,'outtmpl':r"%(id)s.%(ext)s"})
-                ydl_opt = ({'format_id':'137','outtmpl':r"%(id)s.%(ext)s"})
+                ydl_opt = ({'format':'137','outtmpl':r"%(id)s.%(ext)s","proxy":self.proxy_str})
                 with youtube_dl.YoutubeDL(ydl_opt) as ydl:
                     print("download 1080p video...")
                     try:
