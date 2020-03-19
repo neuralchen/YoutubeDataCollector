@@ -5,7 +5,7 @@
 # Created Date: Sunday March 15th 2020
 # Author: Chen Xuanhong
 # Email: chenxuanhongzju@outlook.com
-# Last Modified:  Wednesday, 18th March 2020 1:32:08 am
+# Last Modified:  Thursday, 19th March 2020 10:42:10 am
 # Modified By: Chen Xuanhong
 # Copyright (c) 2020 Shanghai Jiao Tong University
 #############################################################
@@ -70,7 +70,10 @@ class YoutubeSpider:
             socks.setdefaultproxy(
                     socks.PROXY_TYPE_HTTP,
                     proxy["proxy_server"],
-                    proxy["port"])
+                    proxy["port"],
+                    username=proxy["username"],
+                    password=proxy["passwd"]
+                    )
             socket.socket = socks.socksocket
         try:
             self.youtube = build(self.YOUTUBE_API_SERVICE_NAME, self.YOUTUBE_API_VERSION,
@@ -186,11 +189,18 @@ if __name__ == '__main__':
         "YOUTUBE_API_SERVICE_NAME"  : "youtube",
         "YOUTUBE_API_VERSION"       : "v3"
     }
+    # use the huawei proxy
     proxy_info = {
-        "proxy_server"  : "127.0.0.1",
-        "username"      : "hehe",
-        "passwd"        : "ohuo",
-        "port"          : 1080
+        "proxy_server"  : "202.120.39.161",
+        "username"      : "sjtulab",
+        "passwd"        : "sjtulab",
+        "port"          : 8888
     }
+    # proxy_info = {
+    #     "proxy_server"  : "127.0.0.1",
+    #     "username"      : "",
+    #     "passwd"        : "",
+    #     "port"          : 1080
+    # }
     wocao = YoutubeSpider(google_info,50,True,proxy=proxy_info)
     wocao.youtube_search("NASA",6)
