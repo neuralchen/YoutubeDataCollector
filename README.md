@@ -1,5 +1,5 @@
 # YoutubeDataCollector
-A API to collect 1080p and 360p videos from youtube.com
+An API to collect 1080p and 360p videos from youtube.com
 ## Dependencies
 - python3.6
 - PySocks (pip install PySocks)
